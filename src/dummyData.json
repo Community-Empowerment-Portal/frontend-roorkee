@@ -1,8 +1,11 @@
 [
-  {
+  {"State":"Andhra Pradesh",
+   "Department":"Health",
+   "Occupation":"Farmer",
+   "Gender":"Male",
     "id": "b5ffd547-82e9-4f26-9bd5-f24b8ec6b241",
     "eligibility_criteria": {
-      "Income": "0",
+      "Income": "100",
       "Age": "--",
       "Community": "--",
       "OtherDetails": "--"
@@ -20,6 +23,7 @@
     "url": "https://www.tn.gov.in/scheme/data_view/106857",
     "contact_office": "https://edistricts.tn.gov.in:8443/certificates_csc"
   },
+
   {
     "id": "b542673a-68fb-46be-8207-44260d07e4c5",
     "eligibility_criteria": {
