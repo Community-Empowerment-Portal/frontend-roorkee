@@ -1,19 +1,19 @@
 import Image from "next/image";
-import image1 from ".../assets/maharastra.png";
-import image2 from ".../assets/meghalaya.png";
-import image3 from ".../assets/puducheri.png";
-import image4 from ".../assets/tamilnadu.png";
-import image5 from ".../assets/jamu&kas.png";
-import image6 from ".../assets/andhra pra.png"
-import image7 from ".../assets/arunachal p.png"
-import image8 from ".../assets/asam.png"
-import image9 from ".../assets/chandigardh.png"
-import image10 from ".../assets/chhatisgardh.png"
-import image11 from ".../assets/Daman and diu.png"
-import image12 from ".../assets/delhi.png"
-import image13 from ".../assets/goa.png"
-import image14 from ".../assets/gujrat.png"
-import image15 from ".../assets/haryana.png"
+import image1 from "../../assets/maharastra.png";
+import image2 from "../../assets/meghalaya.png";
+import image3 from "../../assets/puducheri.png";
+import image4 from "../../assets/tamilnadu.png";
+import image5 from "../../assets/jamu&kas.png";
+import image6 from "../../assets/andhra pra.png"
+import image7 from "../../assets/arunachal p.png"
+import image8 from "../../assets/asam.png"
+import image9 from "../../assets/chandigardh.png"
+import image10 from "../../assets/chhatisgardh.png"
+import image11 from "../../assets/Daman and diu.png"
+import image12 from "../../assets/delhi.png"
+import image13 from "../../assets/goa.png"
+import image14 from "../../assets/gujrat.png"
+import image15 from "../../assets/haryana.png"
 
 // List of images
 const images = [image1, image2, image3,image4, image5,image6,image7,image8,image9,image10,image11,image12,image13,image14,image15];
