@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { FaArrowLeft, FaShare } from "react-icons/fa";
-import dummyData from '/Users/monukumar/frontend-roorkee/src/dummyData.json';
+import dummyData from '../../dummyData.json';
 
 const Apply = () => {
   const router = useRouter();

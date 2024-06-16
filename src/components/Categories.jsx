@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import styles from '../styles/schemes.module.css';
 import dummyData from '../dummyData.json';
 
 const Categories = () => {
@@ -27,15 +26,14 @@ const Categories = () => {
       {uniqueCategories.map(item => (
         <div key={item}>
           <p 
-            className={styles.item} 
+            className="mt-5 mb-5 text-base cursor-pointer "
             onClick={() => handleClick(item)}
             role="button"
             tabIndex="0"
-            style={{ cursor: 'pointer' }}
           >
             {item}
           </p>
-          <hr className={styles.horizontalRule} />
+          <hr className="h-px bg-gray-300 mb-5" />
         </div>
       ))}
     </div>

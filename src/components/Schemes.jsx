@@ -35,27 +35,37 @@ export default function Schemes() {
           <IoArrowBackOutline className="mr-1 text-xl" /> Back
         </button>
         <div className="flex justify-between flex-wrap">
-          <h1 className="mt-0 mb-4 font-semibold">Schemes</h1>
+          <h1 className="mt-0 mb-4 text-[30px] font-semibold">Schemes</h1>
           <div>
             <button className="font-semibold p-2 rounded-lg border border-gray-300 bg-white mr-2">Regional Language</button>
             <button className="font-semibold p-2 rounded-lg border border-gray-300 bg-white px-7">English</button>
           </div>
         </div>
         <div className="max-w-lg w-full flex flex-wrap justify-between mb-14">
-          <button className="mb-2 font-semibold p-2 rounded-lg border border-gray-300 bg-white hover:bg-gray-100" onClick={handleStateClick}>
-            <FaMapMarkerAlt className="text-gray-600 relative top-1 text-lg mr-1" /> State
+          <button className="mb-2 p-2 rounded-[18px] rounded-lg border border-gray-300 bg-white hover:bg-gray-100" onClick={handleStateClick}>
+            <span className="flex items-center">
+              <FaMapMarkerAlt className="text-gray-600 mr-1" /> State
+            </span>
           </button>
-          <button className="mb-2 font-semibold p-2 rounded-lg border border-gray-300 bg-white hover:bg-gray-100" onClick={handleDepartmentClick}>
-            <FaBuilding className="text-gray-600 relative top-1 text-lg mr-1" /> Department
+          <button className="mb-2 p-2 rounded-[18px] rounded-lg border border-gray-300 bg-white hover:bg-gray-100" onClick={handleDepartmentClick}>
+            <span className="flex items-center">
+              <FaBuilding className="text-gray-600 mr-1" /> Department
+            </span>
           </button>
-          <button className="mb-2 font-semibold p-2 rounded-lg border border-gray-300 bg-white hover:bg-gray-100" onClick={handleOccupationClick}>
-            <FaUserTie className="text-gray-600 relative top-1 text-lg mr-1" /> Occupation
+          <button className="mb-2 p-2 rounded-[18px] rounded-lg border border-gray-300 bg-white hover:bg-gray-100" onClick={handleOccupationClick}>
+            <span className="flex items-center">
+              <FaUserTie className="text-gray-600 mr-1" /> Occupation
+            </span>
           </button>
-          <button className="mb-2 font-semibold p-2 rounded-lg border border-gray-300 bg-white hover:bg-gray-100" onClick={handleGenderClick}>
-            <FaVenusMars className="text-gray-600 relative top-1 text-lg mr-1" /> Gender
+          <button className="mb-2 p-2 rounded-[18px] mr-[1px] rounded-lg border border-gray-300 bg-white hover:bg-gray-100" onClick={handleGenderClick}>
+            <span className="flex items-center">
+              <FaVenusMars className="text-gray-600 mr-1" /> Gender
+            </span>
           </button>
-          <button className="mb-2 font-semibold p-2 rounded-lg border border-gray-300 bg-white hover:bg-gray-100" onClick={handleIncomeClick}>
-            <MdCurrencyRupee className="text-gray-600 relative top-1 text-lg mr-1" /> Income
+          <button className="mb-2 p-2 rounded-[18px] border border-gray-300 bg-white hover:bg-gray-100" onClick={handleIncomeClick}>
+            <span className="flex items-center">
+              <MdCurrencyRupee className="text-gray-600 text-lg mr-1" /> Income
+            </span>
           </button>
         </div>
         <Categories />
