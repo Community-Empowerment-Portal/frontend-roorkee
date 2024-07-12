@@ -9,10 +9,11 @@ import Scholarships from "@/components/Scholarships";
 import Tabs from "@/components/Tabs";
 import { useEffect, useState } from "react";
 import Schemes from "../components/Schemes";
+import Saved from "../components/SavedForLoginUserr"
 
 const HeroPageWithoutLogin = () => {
-  const [component, setComponent] = useState("Job Openings"); // Change default component here
-  const [componentToRender, setComponentToRender] = useState(<JobOpenings />); // Set default component to render here
+  const [component, setComponent] = useState("Schemes");
+  const [componentToRender, setComponentToRender] = useState(<Schemes/>);
 
   useEffect(() => {
     if (component === "Schemes") setComponentToRender(<Schemes />);
@@ -20,6 +21,8 @@ const HeroPageWithoutLogin = () => {
       setComponentToRender(<JobOpenings />);
     else if (component === "Scholarships")
       setComponentToRender(<Scholarships />);
+    else if (component === "Saved")
+      setComponentToRender(<Saved />);
   }, [component]);
 
   return (

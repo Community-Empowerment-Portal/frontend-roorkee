@@ -18,13 +18,13 @@ const NavBar = () => {
       {/* English Button */}
       <div className="flex gap-5">
             <div className="border border-2 border-black rounded-[13px]">
-              <button className="bg-none text-black px-4 py-1 rounded-lg flex items-center  hover:bg-white hover:text-black">
+              <button className="bg-none text-black pt-[12px] pb-[12px] pl-[24px] pr-[24px] rounded-lg flex items-center  hover:bg-gray-200 hover:rounded-[13px] hover:text-black">
                 English <MdExpandMore className="font-semibold" />
               </button>
             </div>
 
-            <div className="border border-2 border-black rounded-[13px]">
-              <button className="bg-none text-black px-4 py-1 rounded-lg flex items-center hover:bg-[#3431BB] hover:text-white"
+            <div className=" rounded-[13px]">
+              <button className="bg-[#3431BB] text-white pt-[12px] pb-[12px] pl-[24px] pr-[24px] rounded-lg flex items-center hover:bg-[#3431BB] hover:text-white"
               onClick={handGotoLoginpage}
               >
                 Login

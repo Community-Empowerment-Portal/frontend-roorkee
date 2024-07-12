@@ -34,6 +34,7 @@ const LoginSucc = () => {
                 <h1>Login successful</h1>
             </motion.div>
         </div>
+        
     )
 }
 

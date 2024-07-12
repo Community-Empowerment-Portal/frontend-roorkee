@@ -153,7 +153,7 @@ const LoginPage = () => {
                 />
               </div>
               <div className="text-sm flex flex-column mb-8 mt-4">
-                <div className=" flex items-center">
+                {/* <div className=" flex items-center">
                   <input
                     className="mr-2 leading-tight"
                     type="checkbox"
@@ -162,7 +162,7 @@ const LoginPage = () => {
                   <label className="text-sm" htmlFor="keepLoggedIn">
                     Keep me logged in
                   </label>
-                </div>
+                </div> */}
                 <a
                   className="text-blue-500 hover:text-blue-700 ml-auto"
                   href="#"

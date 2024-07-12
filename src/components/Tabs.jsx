@@ -27,22 +27,21 @@ function SearchInput({ searchQuery, handleSearch }) {
   );
 }
 
-export default function Tabs(props) {
+export default function Tabs({setComponent}) {
   const router = useRouter();
   const { tab } = router.query;
-  const [activeTab, setActiveTab] = useState(tab || "Schemes");
-  const { searchQuery, setSearchQuery } = useTabContext(); // Accessing searchQuery and setSearchQuery from context
+  const {activeTab, setActiveTab, searchQuery, setSearchQuery} = useTabContext();
 
   useEffect(() => {
     if (tab) {
       setActiveTab(tab);
-      props.setComponent(tab);
+      setComponent(tab);
     }
   }, [tab]);
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
-    props.setComponent(tab);
+    setComponent(tab);
   };
 
   const handleSearch = (event) => {

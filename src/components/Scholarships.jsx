@@ -10,7 +10,7 @@ import IncomeDropdownMenu from "../components/IncomeDropdown";
 import FundingByDropdownMenu from "../components/FundingBy";
 import { useTabContext } from "@/Context/TabContext";
 
-export default function Schemes({ setTab }) {
+export default function Schemes({ setActiveTab }) {
   const [stateName, setStateName] = useState("");
   const [departmentName, setDepartmentName] = useState("");
   const [beneficiaryName, setBeneficiaryName] = useState("");

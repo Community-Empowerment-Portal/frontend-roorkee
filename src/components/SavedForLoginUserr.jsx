@@ -25,7 +25,7 @@ export default function Saved() {
   useEffect(() => {
     const fetchState = async () => {
       try {
-        const response = await fetch("http://3.25.199.183:8000/api/save_scheme/");
+        const response = await fetch("http://54.79.141.24:8000/api/save_scheme/");
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -99,7 +99,8 @@ export default function Saved() {
 
   return (
     <>
-    <div className="bg-white font-sans">
+    <div className="bg-white font-sans ">
+      {/* <h1>asdbjouvbiuwaq nhegiun visdauvon soph nv9pu wa9phw</h1> */}
       {/* <h1 className="mt-0 mb-[20px] font-bold text-[28px]">Schemes</h1> */}      
       <div className="mt-0 w-full flex flex-wrap gap-[16px] mb-15 font-sans items-center py-[4px] px-[0px] text-gray-600 self-stretch text-button-text">
         <p className="font-normal text-[14px]">Filter schemes by</p>
@@ -200,7 +201,7 @@ export default function Saved() {
         selectedAges={selectedAges}
         selectedFunders={selectedFunders}
         selectedIncomes
-      />
+      /> 
     </div>
     </>
   );
