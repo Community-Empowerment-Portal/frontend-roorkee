@@ -3,18 +3,18 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import * as Yup from "yup";
-import { useFormData } from "../Context/FormContext"; // Correct import path
+import { useFormData } from "../Context/FormContext"; 
 import loginperson from "../assets/image.png";
 import IndialImg from "../assets/ind2.png";
-import { FaSpinner } from "react-icons/fa"; // Import loading spinner
-import { useAuth } from "@/pages/AuthContext"; // Import the Auth context
+import { FaSpinner } from "react-icons/fa"; 
+import { useAuth } from "@/pages/AuthContext"; 
 
 const CreateAcc01 = () => {
   const router = useRouter();
   const { updateFormData } = useFormData();
-  const { login } = useAuth(); // Get the login function from the context
+  const { login } = useAuth(); 
   const [apiErrors, setApiErrors] = useState({ username: "", email: "" });
-  const [isLoading, setIsLoading] = useState(false); // State for loading
+  const [isLoading, setIsLoading] = useState(false); 
 
   const validationSchema = Yup.object().shape({
     username: Yup.string().required("Username is required"),

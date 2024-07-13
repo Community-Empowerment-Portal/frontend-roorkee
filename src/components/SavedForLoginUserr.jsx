@@ -8,8 +8,10 @@ import BeneficiaryDropdownMenu from "../components/BeneficiariesDropdown";
 import AgeDropdownMenu from "../components/AgeDropdown";
 import IncomeDropdownMenu from "../components/IncomeDropdown";
 import FundingByDropdownMenu from "../components/FundingBy";
+import { useAuth } from "@/pages/AuthContext";
 
 export default function Saved() {
+  const { authState } = useAuth(); // Getting the authState from AuthContext
   const [data, setData] = useState(null);
   const [stateName, setStateName] = useState("");
   const [departmentName, setDepartmentName] = useState("");
@@ -21,22 +23,6 @@ export default function Saved() {
   const [selectedAges, setSelectedAges] = useState([]);
   const [selectedIncomes, setSelectedIncomes] = useState([]);
   const [selectedFunders, setSelectedFunders] = useState([]);
-
-  useEffect(() => {
-    const fetchState = async () => {
-      try {
-        const response = await fetch("http://54.79.141.24:8000/api/save_scheme/");
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        setData(data);
-      } catch (error) {
-        console.error("Failed to fetch data:", error);
-      }
-    };
-    fetchState();
-  }, []);
 
   const [dropDownStates, setDropDownStates] = useState({
     dropDownOpen: false,
@@ -53,6 +39,37 @@ export default function Saved() {
   const ageDropdownRef = useRef();
   const incomeDropdownRef = useRef();
   const funderDropdownRef = useRef();
+
+  useEffect(() => {
+    if (!authState.token) {
+      // Token not available, skip fetching data
+      return;
+    }
+
+    const fetchState = async () => {
+      try {
+        const myHeaders = new Headers();
+        myHeaders.append("Authorization", `Bearer ${authState.token}`);
+
+        const requestOptions = {
+          method: "GET",
+          headers: myHeaders,
+          redirect: "follow",
+        };
+
+        const response = await fetch("http://54.79.141.24:8000/api/user/saved_schemes/", requestOptions);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        console.log(response)
+        const data = await response.json();
+        setData(data);
+      } catch (error) {
+        console.error("Failed to fetch data:", error);
+      }
+    };
+    fetchState();
+  }, [authState.token]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -97,112 +114,124 @@ export default function Saved() {
     });
   };
 
+  if (!authState.token) {
+    return <div>Please log in to see your saved data.</div>;
+  }
+
   return (
     <>
-    <div className="bg-white font-sans ">
-      {/* <h1>asdbjouvbiuwaq nhegiun visdauvon soph nv9pu wa9phw</h1> */}
-      {/* <h1 className="mt-0 mb-[20px] font-bold text-[28px]">Schemes</h1> */}      
-      <div className="mt-0 w-full flex flex-wrap gap-[16px] mb-15 font-sans items-center py-[4px] px-[0px] text-gray-600 self-stretch text-button-text">
-        <p className="font-normal text-[14px]">Filter schemes by</p>
-        <button
-          className={
-            dropDownStates.dropDownOpen || stateName !== ""
-              ? `flex font-normal gap-1 py-[4px] pl-[8px] pr-[4px] rounded-[40px] text-[14px] text-onclick-btnblue border border-onclick-btnblue bg-dropdown-blue cursor-pointer`
-              : `flex font-normal gap-1 py-[4px] pl-[8px] pr-[4px] rounded-[40px] text-[14px] border border-{#EDEDED} bg-white cursor-pointer hover:bg-gray-200 items-center`
-          }
-          onClick={() => toggleDropdown("dropDownOpen")}
-          id="stateBtn"
-        >
-          State <MdKeyboardArrowDown className="text-[20px] text-{#616161}" />
-        </button>
-        <button
-          className={
-            dropDownStates.departmentOpen || departmentName !== ""
-              ? `flex font-normal gap-1 py-[4px] pl-[8px] pr-[4px] rounded-[40px] text-[14px] text-onclick-btnblue border border-onclick-btnblue bg-dropdown-blue cursor-pointer`
-              : `flex font-normal gap-1 py-[4px] pl-[8px] pr-[4px] rounded-[40px] text-[14px] border border-{#EDEDED} bg-white cursor-pointer hover:bg-gray-200 items-center`
-          }
-          onClick={() => toggleDropdown("departmentOpen")}
-          id="departmentBtn"
-        >
-          {departmentName !== "" ? `Department is ${departmentName}` : "Department"}{" "}
-          <MdKeyboardArrowDown className="text-[20px] text-{#616161}" />
-        </button>
-        <button
-          className={
-            dropDownStates.beneficiaryOpen || beneficiaryName !== ""
-              ? `flex font-normal gap-1 py-[4px] pl-[8px] pr-[4px] rounded-[40px] text-[14px] text-onclick-btnblue border border-onclick-btnblue bg-dropdown-blue cursor-pointer`
-              : `flex font-normal gap-1 py-[4px] pl-[8px] pr-[4px] rounded-[40px] text-[14px] border border-{#EDEDED} bg-white cursor-pointer hover:bg-gray-200 items-center`
-          }
-          onClick={() => toggleDropdown("beneficiaryOpen")}
-          id="beneficiaryBtn"
-        >
-          {beneficiaryName !== ""
-            ? `Beneficiary is ${beneficiaryName}`
-            : "Beneficiaries"}
-          <MdKeyboardArrowDown className="text-[20px] text-{#616161}" />
-        </button>
-        <button
-          className={
-            dropDownStates.fundersOpen || funderName !== ""
-              ? `flex font-normal gap-1 py-[4px] pl-[8px] pr-[4px] rounded-[40px] text-[14px] text-onclick-btnblue border border-onclick-btnblue bg-dropdown-blue cursor-pointer`
-              : `flex font-normal gap-1 py-[4px] pl-[8px] pr-[4px] rounded-[40px] text-[14px] border border-{#EDEDED} bg-white cursor-pointer hover:bg-gray-200 items-center`
-          }
-          onClick={() => toggleDropdown("fundersOpen")}
-          id="fundingbyBtn"
-        >
-          {funderName !== "" ? `Funder is ${funderName}` : "Funding by"}
-          <MdKeyboardArrowDown className="text-[20px] text-{#616161}" />
-        </button>
-        <button
-          className={
-            dropDownStates.incomeOpen
-              ? `flex font-normal gap-1 py-[4px] pl-[8px] pr-[4px] rounded-[40px] text-[14px] text-onclick-btnblue border border-onclick-btnblue bg-dropdown-blue cursor-pointer`
-              : `flex font-normal gap-1 py-[4px] pl-[8px] pr-[4px] rounded-[40px] text-[14px] border border-{#EDEDED} bg-white cursor-pointer hover:bg-gray-200 items-center`
-          }
-          onClick={() => toggleDropdown("incomeOpen")}
-          id="incomeBtn"
-        >
-          More Filters <IoMdAdd className="text-[20px] text-{#616161}" />
-        </button>
+      <div className="bg-white font-sans">
+        <div className="mt-0 w-full flex flex-wrap gap-[16px] mb-15 font-sans items-center py-[4px] px-[0px] text-gray-600 self-stretch text-button-text">
+          <p className="font-normal text-[14px]">Filter schemes by</p>
+          <button
+            className={
+              dropDownStates.dropDownOpen || stateName !== ""
+                ? `flex font-normal gap-1 py-[4px] pl-[8px] pr-[4px] rounded-[40px] text-[14px] text-onclick-btnblue border border-onclick-btnblue bg-dropdown-blue cursor-pointer`
+                : `flex font-normal gap-1 py-[4px] pl-[8px] pr-[4px] rounded-[40px] text-[14px] border border-{#EDEDED} bg-white cursor-pointer hover:bg-gray-200 items-center`
+            }
+            onClick={() => toggleDropdown("dropDownOpen")}
+            id="stateBtn"
+          >
+            State <MdKeyboardArrowDown className="text-[20px] text-{#616161}" />
+          </button>
+          <button
+            className={
+              dropDownStates.departmentOpen || departmentName !== ""
+                ? `flex font-normal gap-1 py-[4px] pl-[8px] pr-[4px] rounded-[40px] text-[14px] text-onclick-btnblue border border-onclick-btnblue bg-dropdown-blue cursor-pointer`
+                : `flex font-normal gap-1 py-[4px] pl-[8px] pr-[4px] rounded-[40px] text-[14px] border border-{#EDEDED} bg-white cursor-pointer hover:bg-gray-200 items-center`
+            }
+            onClick={() => toggleDropdown("departmentOpen")}
+            id="departmentBtn"
+          >
+            {departmentName !== "" ? `Department is ${departmentName}` : "Department"}{" "}
+            <MdKeyboardArrowDown className="text-[20px] text-{#616161}" />
+          </button>
+          <button
+            className={
+              dropDownStates.beneficiaryOpen || beneficiaryName !== ""
+                ? `flex font-normal gap-1 py-[4px] pl-[8px] pr-[4px] rounded-[40px] text-[14px] text-onclick-btnblue border border-onclick-btnblue bg-dropdown-blue cursor-pointer`
+                : `flex font-normal gap-1 py-[4px] pl-[8px] pr-[4px] rounded-[40px] text-[14px] border border-{#EDEDED} bg-white cursor-pointer hover:bg-gray-200 items-center`
+            }
+            onClick={() => toggleDropdown("beneficiaryOpen")}
+            id="beneficiaryBtn"
+          >
+            {beneficiaryName !== ""
+              ? `Beneficiary is ${beneficiaryName}`
+              : "Beneficiaries"}
+            <MdKeyboardArrowDown className="text-[20px] text-{#616161}" />
+          </button>
+          <button
+            className={
+              dropDownStates.fundersOpen || funderName !== ""
+                ? `flex font-normal gap-1 py-[4px] pl-[8px] pr-[4px] rounded-[40px] text-[14px] text-onclick-btnblue border border-onclick-btnblue bg-dropdown-blue cursor-pointer`
+                : `flex font-normal gap-1 py-[4px] pl-[8px] pr-[4px] rounded-[40px] text-[14px] border border-{#EDEDED} bg-white cursor-pointer hover:bg-gray-200 items-center`
+            }
+            onClick={() => toggleDropdown("fundersOpen")}
+            id="fundingbyBtn"
+          >
+            {funderName !== "" ? `Funder is ${funderName}` : "Funding by"}
+            <MdKeyboardArrowDown className="text-[20px] text-{#616161}" />
+          </button>
+          <button
+            className={
+              dropDownStates.incomeOpen
+                ? `flex font-normal gap-1 py-[4px] pl-[8px] pr-[4px] rounded-[40px] text-[14px] text-onclick-btnblue border border-onclick-btnblue bg-dropdown-blue cursor-pointer`
+                : `flex font-normal gap-1 py-[4px] pl-[8px] pr-[4px] rounded-[40px] text-[14px] border border-{#EDEDED} bg-white cursor-pointer hover:bg-gray-200 items-center`
+            }
+            onClick={() => toggleDropdown("incomeOpen")}
+            id="incomeBtn"
+          >
+            More Filters <IoMdAdd className="text-[20px] text-{#616161}" />
+          </button>
+        </div>
+
+        {dropDownStates.dropDownOpen && <DropdownMenu ref={dropdownRef} />}
+        {dropDownStates.departmentOpen && (
+          <DepartmentDropdownMenu
+            ref={departmentDropdownRef}
+            selectedDepartments={selectedDepartments}
+            setSelectedDepartments={setSelectedDepartments}
+            setDepartmentName={setDepartmentName}
+            data={data}
+          />
+        )}
+        {dropDownStates.beneficiaryOpen && (
+          <BeneficiaryDropdownMenu
+            ref={beneficiaryDropdownRef}
+            selectedBeneficiaries={selectedBeneficiaries}
+            setSelectedBeneficiaries={setSelectedBeneficiaries}
+            setBeneficiaryName={setBeneficiaryName}
+            data={data}
+          />
+        )}
+        {dropDownStates.ageOpen && (
+          <AgeDropdownMenu
+            ref={ageDropdownRef}
+            selectedAges={selectedAges}
+            setSelectedAges={setSelectedAges}
+            data={data}
+          />
+        )}
+        {dropDownStates.incomeOpen && (
+          <IncomeDropdownMenu
+            ref={incomeDropdownRef}
+            selectedIncomes={selectedIncomes}
+            setSelectedIncomes={setSelectedIncomes}
+            data={data}
+          />
+        )}
+        {dropDownStates.fundersOpen && (
+          <FundingByDropdownMenu
+            ref={funderDropdownRef}
+            selectedFunders={selectedFunders}
+            setSelectedFunders={setSelectedFunders}
+            setFunderName={setFunderName}
+            data={data}
+          />
+        )}
       </div>
 
-      {dropDownStates.dropDownOpen && <DropdownMenu ref={dropdownRef} />}
-      {dropDownStates.departmentOpen && (
-        <DepartmentDropdownMenu
-          ref={departmentDropdownRef}
-          selectedDepartments={selectedDepartments}
-          setSelectedDepartments={setSelectedDepartments}
-          setDepartmentName={setDepartmentName}
-          data = {data}
-        />
-      )}
-      {dropDownStates.beneficiaryOpen && (
-        <BeneficiaryDropdownMenu
-          ref={beneficiaryDropdownRef}
-          selectedBeneficiaries={selectedBeneficiaries}
-          setSelectedBeneficiaries={setSelectedBeneficiaries}
-          setBeneficiaryName={setBeneficiaryName}
-          data = {data}
-        />
-      )}
-      {dropDownStates.fundersOpen && (
-        <FundingByDropdownMenu
-          ref={funderDropdownRef}
-          selectedFunders={selectedFunders}
-          setSelectedFunders={setSelectedFunders}
-          setFunderName={setFunderName}
-          data = {data}
-        />
-      )}
-      <Categories
-        data = {data}
-        selectedDepartments={selectedDepartments}
-        selectedBeneficiaries={selectedBeneficiaries}
-        selectedAges={selectedAges}
-        selectedFunders={selectedFunders}
-        selectedIncomes
-      /> 
-    </div>
+      {data ? <Categories data={data} token={authState.token} /> : <div>Loading...</div>}
     </>
   );
 }
