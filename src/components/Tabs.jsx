@@ -1,51 +1,29 @@
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useTabContext } from "@/Context/TabContext";
+import SearchInput from "./SearchInput";
 
-function SearchInput({ searchQuery, handleSearch }) {
-  return (
-    <div className="flex items-center gap-8 h-14 px-3 rounded-lg border border-gray-300 bg-white mb-8 mr-[200px]">
-      <svg
-        className="w-6 h-6 text-gray-400"
-        fill="none"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="2"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path d="M20 20l-4.585-4.585M10 17a7 7 0 100-14 7 7 0 000 14z"></path>
-      </svg>
-      <input
-        type="text"
-        placeholder="Search schemes, job opportunities, or scholarships"
-        className="flex-1 px-2 text-sm bg-transparent focus:outline-none w-64"
-        value={searchQuery}
-        onChange={handleSearch}
-      />
-    </div>
-  );
-}
-
-export default function Tabs({setComponent}) {
+export default function Tabs({ setComponent }) {
   const router = useRouter();
   const { tab } = router.query;
-  const {activeTab, setActiveTab, searchQuery, setSearchQuery} = useTabContext();
+  const { activeTab, setActiveTab, searchQuery, setSearchQuery } = useTabContext();
 
   useEffect(() => {
     if (tab) {
       setActiveTab(tab);
       setComponent(tab);
+    } else {
+      setActiveTab("Schemes");
+      setComponent("Schemes");
     }
-  }, [tab]);
+  }, [tab, setActiveTab, setComponent]);
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
     setComponent(tab);
   };
 
-  const handleSearch = (event) => {
-    const query = event.target.value;
+  const handleSearch = (query) => {
     setSearchQuery(query); // Update searchQuery state via context
   };
 
@@ -59,9 +37,7 @@ export default function Tabs({setComponent}) {
 
   return (
     <div className="mb-4">
-      <Suspense fallback={<div>Loading search...</div>}>
-        <SearchInput searchQuery={searchQuery} handleSearch={handleSearch} />
-      </Suspense>
+      <SearchInput searchQuery={searchQuery} handleSearch={handleSearch} />
 
       <div className="flex justify-center items-center gap-[15px]">
         <button

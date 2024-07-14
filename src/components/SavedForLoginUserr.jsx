@@ -56,8 +56,7 @@ export default function Saved() {
           headers: myHeaders,
           redirect: "follow",
         };
-
-        const response = await fetch("http://54.79.141.24:8000/api/user/saved_schemes/", requestOptions);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user/saved_schemes/`, requestOptions);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }

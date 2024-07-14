@@ -1,14 +1,12 @@
-import React, { useState, useRef, useEffect } from "react";
-import { MdKeyboardArrowDown } from "react-icons/md";
-import { IoMdAdd } from "react-icons/io";
-import Categories from "../components/Categories";
-import DropdownMenu from "../components/DropdownMenu";
-import DepartmentDropdownMenu from "../components/DepartmentDropDown";
-import BeneficiaryDropdownMenu from "../components/BeneficiariesDropdown";
-import AgeDropdownMenu from "../components/AgeDropdown";
-import IncomeDropdownMenu from "../components/IncomeDropdown";
-import FundingByDropdownMenu from "../components/FundingBy";
 import { useTabContext } from "@/Context/TabContext";
+import { useEffect, useRef, useState } from "react";
+import { IoMdAdd } from "react-icons/io";
+import { MdKeyboardArrowDown } from "react-icons/md";
+import BeneficiaryDropdownMenu from "../components/BeneficiariesDropdown";
+import Categories from "../components/Categories";
+import DepartmentDropdownMenu from "../components/DepartmentDropDown";
+import DropdownMenu from "../components/DropdownMenu";
+import FundingByDropdownMenu from "../components/FundingBy";
 
 export default function Schemes({ setTab }) {
   const [stateName, setStateName] = useState("");
@@ -29,7 +27,7 @@ export default function Schemes({ setTab }) {
       try {
         let apiUrl = "http://54.79.141.24:8000/api/schemes"
         if (searchQuery) {
-              apiUrl += `/search/?q=${encodeURIComponent(searchQuery)}`;
+              apiUrl += `/search/?q=${searchQuery}`;
             }
         const response = await fetch(apiUrl);
         if (!response.ok) {
