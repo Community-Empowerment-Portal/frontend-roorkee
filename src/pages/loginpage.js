@@ -3,9 +3,8 @@ import Image from "next/image";
 import IndialImg from "../assets/ind2.png";
 import { Formik } from "formik";
 import loginperson from "../assets/image.png";
-import { FaAngleRight } from "react-icons/fa6";
+import { FaAngleRight, FaEye, FaEyeSlash, FaSpinner } from "react-icons/fa";
 import { useRouter } from "next/router";
-import { FaSpinner } from "react-icons/fa";
 import { useAuth } from "./AuthContext";
 
 const LoginPage = () => {
@@ -13,6 +12,7 @@ const LoginPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const { login } = useAuth(); // Get the login function from the context
+  const [passwordVisible, setPasswordVisible] = useState(false); // State to manage password visibility
 
   const handleCreate01Click = () => {
     router.push("/accountCreation");
@@ -61,6 +61,10 @@ const LoginPage = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
   };
 
   return (
@@ -135,7 +139,7 @@ const LoginPage = () => {
                   value={formik.values.username}
                 />
               </div>
-              <div className="mt-6">
+              <div className="mt-6 relative">
                 <label
                   className="block text-gray-700 text-sm font-bold mb-2"
                   htmlFor="password"
@@ -145,12 +149,15 @@ const LoginPage = () => {
                 <input
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                   id="password"
-                  type="password"
+                  type={passwordVisible ? "text" : "password"}
                   placeholder="Enter your password"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.password}
                 />
+                <div className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer mt-4" onClick={togglePasswordVisibility}>
+                  {passwordVisible ? <FaEyeSlash /> : <FaEye />}
+                </div>
               </div>
               <div className="text-sm flex flex-column mb-8 mt-4">
                 {/* <div className=" flex items-center">
@@ -224,4 +231,3 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
-

@@ -3,24 +3,29 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import * as Yup from "yup";
-import { useFormData } from "../Context/FormContext"; 
+import { useFormData } from "../Context/FormContext";
 import loginperson from "../assets/image.png";
 import IndialImg from "../assets/ind2.png";
-import { FaSpinner } from "react-icons/fa"; 
-import { useAuth } from "@/pages/AuthContext"; 
+import { FaSpinner, FaEye, FaEyeSlash } from "react-icons/fa";
+import { useAuth } from "@/pages/AuthContext";
 
 const CreateAcc01 = () => {
   const router = useRouter();
   const { updateFormData } = useFormData();
-  const { login } = useAuth(); 
+  const { login } = useAuth();
   const [apiErrors, setApiErrors] = useState({ username: "", email: "" });
-  const [isLoading, setIsLoading] = useState(false); 
+  const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const validationSchema = Yup.object().shape({
     username: Yup.string().required("Username is required"),
     email: Yup.string().email("Invalid email address").required("Email is required"),
     password: Yup.string().required("Password is required"),
   });
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   return (
     <div className="flex h-screen overflow-hidden -mb-6">
@@ -159,7 +164,7 @@ const CreateAcc01 = () => {
                   <div className="text-red-500 text-sm">{apiErrors.email}</div>
                 )}
               </div>
-              <div className="mt-6">
+              <div className="relative mt-6">
                 <label
                   className="block text-gray-700 text-sm font-bold mb-2"
                   htmlFor="password"
@@ -169,12 +174,15 @@ const CreateAcc01 = () => {
                 <input
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                   id="password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   placeholder="Enter your password"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.password}
                 />
+                <div className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer mt-4" onClick={togglePasswordVisibility}>
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </div>
                 {formik.touched.password && formik.errors.password ? (
                   <div className="text-red-500 text-sm">{formik.errors.password}</div>
                 ) : null}
