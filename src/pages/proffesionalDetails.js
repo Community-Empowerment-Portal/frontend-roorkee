@@ -190,7 +190,7 @@ const CreateAcc03 = () => {
                   Previous
                 </button>
                 <button
-                  className="bg-[#3431BB] hover:bg-purple-700 text-white font-bold py-2 px-8 rounded focus:outline-none focus:shadow-outline"
+                  className="bg-[#3431BB] hover:bg text-white font-bold py-2 px-8 rounded focus:outline-none focus:shadow-outline"
                   type="submit"
                   disabled={formik.isSubmitting || isLoading}
                 >

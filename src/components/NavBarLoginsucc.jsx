@@ -35,7 +35,7 @@ const NavBar = () => {
   };
 
   return (
-    <div className="bg-[#FAFAFF] pt-[12px] pr-[138px] pb-[12px] pl-[138px]">
+    <div className="bg-[] pt-[12px] pr-[138px] pb-[12px] pl-[138px]">
       <div style={{ maxWidth: "80%", margin: "0 auto" }} className="flex justify-between items-center  z-10 relative ">
         <div className="">
           Logo

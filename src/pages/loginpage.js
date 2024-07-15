@@ -171,7 +171,7 @@ const LoginPage = () => {
                   </label>
                 </div> */}
                 <a
-                  className="text-blue-500 hover:text-blue-700 ml-auto"
+                  className="text-[#3431BB] hover:text-blue-700 ml-auto"
                   href="#"
                 >
                   Forgot password?
@@ -192,7 +192,7 @@ const LoginPage = () => {
 
               <div>
                 <button
-                  className="bg-[#3431BB] hover:bg-purple-700 text-white font-bold py-3 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+                  className="bg-[#3431BB] hover:bg text-white font-bold py-3 px-4 rounded focus:outline-none focus:shadow-outline w-full"
                   type="submit"
                   disabled={formik.isSubmitting}
                 >

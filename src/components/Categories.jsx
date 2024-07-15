@@ -7,10 +7,10 @@ import { useAuth } from "@/pages/AuthContext";
 
 export default function Categories(props) {
   const [filteredData, setFilteredData] = useState([]);
-  const [selectedScheme, setSelectedScheme] = useState(null); // State to hold the selected scheme
-  const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
+  const [selectedScheme, setSelectedScheme] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isBookmarked, setBookmarks] = useState({});
-  const [isSavedModalOpen, setIsSavedModalOpen] = useState(false); // State to control saved modal visibility
+  const [isSavedModalOpen, setIsSavedModalOpen] = useState(false);
   const { authState } = useAuth();
 
   useEffect(() => {
@@ -42,6 +42,42 @@ export default function Categories(props) {
     }
   }, [props.data, props.selectedDepartments, props.selectedBeneficiaries, props.selectedFunders]);
 
+  // Fetch saved schemes so that we can mark saved schemes as bookmarked
+  useEffect(() => {
+    const fetchSavedSchemes = async () => {
+      if (authState.token) {
+        try {
+          const myHeaders = new Headers();
+          myHeaders.append("Authorization", `Bearer ${authState.token}`);
+
+          const requestOptions = {
+            method: "GET",
+            headers: myHeaders,
+            redirect: "follow"
+          };
+
+          const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user/saved_schemes/`, requestOptions);
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          const data = await response.json();
+          const savedSchemes = data.map(scheme => scheme.id);
+          const bookmarks = savedSchemes.reduce((acc, id) => {
+            acc[id] = true;
+            return acc;
+          }, {});
+          
+          setBookmarks(bookmarks);
+        } catch (error) {
+          console.error("Failed to fetch saved schemes:", error);
+        }
+      }
+    };
+
+    fetchSavedSchemes();
+  }, [authState.token]);
+
   const handleClick = (scheme_id) => {
     const scheme = props.data.find((item) => item.id === scheme_id);
     if (scheme) {
@@ -56,10 +92,9 @@ export default function Categories(props) {
     myHeaders.append("Content-Type", "application/json");
 
     const raw = JSON.stringify({
-      "saved_schemes": [scheme_id]
+       scheme_id
     });
 
-    console.log(scheme_id)
     const requestOptions = {
       method: "POST",
       headers: myHeaders,
@@ -68,7 +103,7 @@ export default function Categories(props) {
     };
 
     try {
-      const response = await fetch("http://54.79.141.24:8000/api/save_scheme/", requestOptions);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/save_scheme/`, requestOptions);
       if (response.ok) {
         const result = await response.json();
         console.log(result);
@@ -83,11 +118,54 @@ export default function Categories(props) {
     }
   };
 
+  const unsaveScheme = async (scheme_id) => {
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${authState.token}`);
+    myHeaders.append("Content-Type", "application/json");
+
+    const raw = JSON.stringify({
+       
+       "scheme_ids": [scheme_id]
+
+    });
+
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow"
+    };
+
+    try {
+      console.log("Sending unsave request for scheme_id:", scheme_id); // Debugging statement
+      console.log("Request payload:", raw); // Log request payload
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/unsave_scheme/`, requestOptions);
+      const result = await response.json();
+      // console.log("Unsave response:", result); // Log the response
+      if (response.ok) {
+        console.log(result);
+        return true;
+      } else {
+        console.error('Failed to unsave scheme');
+        return false;
+      }
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  };
+
   const toggleBookmark = async (e, itemId) => {
     e.preventDefault();
 
     if (authState.token) {
-      const success = await saveScheme(itemId);
+      let success;
+      if (isBookmarked[itemId]) {
+        success = await unsaveScheme(itemId);
+      } else {
+        success = await saveScheme(itemId);
+      }
+
       if (success) {
         setBookmarks(prevState => ({
           ...prevState,

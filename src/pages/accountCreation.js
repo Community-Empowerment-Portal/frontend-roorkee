@@ -190,7 +190,7 @@ const CreateAcc01 = () => {
               <div className="absolute bottom-[200px]">
                 <span className="mr-2 pr-[350px]">1/3</span>
                 <button
-                  className="bg-[#3431BB] hover:bg-purple-700 text-white font-bold py-2 px-8 rounded focus:outline-none focus:shadow-outline"
+                  className="bg-[#3431BB] hover:bg text-white font-bold py-2 px-8 rounded focus:outline-none focus:shadow-outline"
                   type="submit"
                   disabled={formik.isSubmitting || isLoading}
                 >
