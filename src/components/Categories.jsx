@@ -3,7 +3,7 @@ import ApplyModal from "../pages/content";
 import { CiBookmark } from "react-icons/ci";
 import { GoBookmarkFill } from "react-icons/go";
 import SavedModal from "@/pages/model/savedModal";
-import { useAuth } from "@/pages/AuthContext";
+import { useAuth } from "@/Context/AuthContext";
 
 export default function Categories(props) {
   const [filteredData, setFilteredData] = useState([]);
@@ -118,6 +118,8 @@ export default function Categories(props) {
     }
   };
 
+// Unsave scheme
+
   const unsaveScheme = async (scheme_id) => {
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${authState.token}`);
@@ -137,7 +139,7 @@ export default function Categories(props) {
     };
 
     try {
-      console.log("Sending unsave request for scheme_id:", scheme_id); // Debugging statement
+      console.log("Sending unsave request for scheme_id:", scheme_id);
       console.log("Request payload:", raw); // Log request payload
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/unsave_scheme/`, requestOptions);
       const result = await response.json();

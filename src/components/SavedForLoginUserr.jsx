@@ -8,7 +8,7 @@ import BeneficiaryDropdownMenu from "../components/BeneficiariesDropdown";
 import AgeDropdownMenu from "../components/AgeDropdown";
 import IncomeDropdownMenu from "../components/IncomeDropdown";
 import FundingByDropdownMenu from "../components/FundingBy";
-import { useAuth } from "@/pages/AuthContext";
+import { useAuth } from "@/Context/AuthContext";
 
 export default function Saved() {
   const { authState } = useAuth(); // Getting the authState from AuthContext

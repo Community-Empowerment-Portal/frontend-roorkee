@@ -7,18 +7,17 @@ import { useFormData } from "../Context/FormContext";
 import loginperson from "../assets/image.png";
 import IndialImg from "../assets/ind2.png";
 import { FaSpinner, FaEye, FaEyeSlash } from "react-icons/fa";
-import { useAuth } from "@/pages/AuthContext";
+import { useAuth } from "@/Context/AuthContext";
 
 const CreateAcc01 = () => {
   const router = useRouter();
   const { updateFormData } = useFormData();
   const { login } = useAuth();
-  const [apiErrors, setApiErrors] = useState({ username: "", email: "" });
+  const [apiErrors, setApiErrors] = useState({ email: "", password: "" });
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   const validationSchema = Yup.object().shape({
-    username: Yup.string().required("Username is required"),
     email: Yup.string().email("Invalid email address").required("Email is required"),
     password: Yup.string().required("Password is required"),
   });
@@ -61,7 +60,6 @@ const CreateAcc01 = () => {
       <div className="w-1/2 flex items-center justify-center">
         <Formik
           initialValues={{
-            username: "",
             email: "",
             password: "",
           }}
@@ -72,7 +70,6 @@ const CreateAcc01 = () => {
             myHeaders.append("Content-Type", "application/json");
 
             const raw = JSON.stringify({
-              username: values.username,
               email: values.email,
               password: values.password,
             });
@@ -84,22 +81,22 @@ const CreateAcc01 = () => {
               redirect: "follow",
             };
 
-            fetch("http://3.25.199.183:8000/api/register/", requestOptions)
+            fetch("http://54.79.141.24:8000/api/register/", requestOptions)
               .then((response) => response.json())
               .then((result) => {
                 if (result.user) {
-                  setApiErrors({ username: "", email: "" });
+                  setApiErrors({ email: "", password: "" });
                   updateFormData(values);
                   login(result.token, result.user); // Update authState
                   router.push("/personalDetails");
                 } else {
                   console.error(result);
                   setApiErrors({
-                    username: result.username ? result.username[0] : "",
                     email: result.email ? result.email[0] : "",
+                    password: result.password ? result.password[0] : "",
                   });
                   setTimeout(() => {
-                    setApiErrors({ username: "", email: "" });
+                    setApiErrors({ email: "", password: "" });
                   }, 3000);
                 }
               })
@@ -118,29 +115,6 @@ const CreateAcc01 = () => {
               onSubmit={formik.handleSubmit}
             >
               <h1 className="text-2xl font-bold mb-4">Create an Account</h1>
-              <div>
-                <label
-                  className="block text-gray-700 text-sm font-bold mb-2"
-                  htmlFor="username"
-                >
-                  User Name
-                </label>
-                <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4"
-                  id="username"
-                  type="text"
-                  placeholder="Your username"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.username}
-                />
-                {formik.touched.username && formik.errors.username ? (
-                  <div className="text-red-500 text-sm">{formik.errors.username}</div>
-                ) : null}
-                {apiErrors.username && (
-                  <div className="text-red-500 text-sm">{apiErrors.username}</div>
-                )}
-              </div>
               <div>
                 <label
                   className="block text-gray-700 text-sm font-bold mb-2"
