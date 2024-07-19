@@ -60,6 +60,30 @@ export default function Categories(props) {
         );
       }
 
+      if (
+        props.selectedSponsors &&
+        props.selectedSponsors.length > 0
+      ) {
+        filtered = filtered.filter((item) => {
+          const allSponsorTypes = item.sponsors.flatMap(
+            (sponsor) =>
+              sponsor.sponsor_type.split(",").map((type) => type.trim())
+          );
+
+          const haveCommonElement = props.selectedSponsors.some(
+            (sponsor) => {
+              return allSponsorTypes.includes(sponsor);
+            }
+          );
+
+          if (haveCommonElement) {
+            return true;
+          } else {
+            return false;
+          }
+        });
+      }
+
       // Set filtered data after applying all filters
       setFilteredData(filtered);
     }
@@ -69,6 +93,7 @@ export default function Categories(props) {
     props.selectedDepartments,
     props.selectedBeneficiaries,
     props.selectedFunders,
+    props.selectedSponsors
   ]);
 
   // Fetch saved schemes so that we can mark saved schemes as bookmarked
@@ -85,7 +110,7 @@ export default function Categories(props) {
             redirect: "follow",
           };
           const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_BASE_URL}api/user/saved_schemes/`,
+            `${process.env.DOMAIN_NAME}api/user/saved_schemes/`,
             requestOptions
           );
           if (!response.ok) {
@@ -132,7 +157,7 @@ export default function Categories(props) {
     };
   
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/save_scheme/`, requestOptions);
+      const response = await fetch(`${process.env.DOMAIN_NAME}api/save_scheme/`, requestOptions);
       if (response.ok) {
         const result = await response.json();
         console.log(result);
@@ -169,7 +194,7 @@ export default function Categories(props) {
       console.log("Sending unsave request for scheme_id:", scheme_id);
       console.log("Request payload:", raw);
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}api/unsave_scheme/`,
+        `${process.env.DOMAIN_NAME}api/unsave_scheme/`,
         requestOptions
       );
       const result = await response.json();
@@ -220,14 +245,7 @@ export default function Categories(props) {
   if (props.data.length === 0 || filteredData.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center gap-[8px] mt-[120px]">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="33"
-          height="32"
-          viewBox="0 0 33 32"
-          fill="none"
-        ></svg>
-        <p className="text-button-text text-[14px]">No results found</p>
+        <p className="text-button-text text-[14px] text-button-blue">Sorry no result is found based on your preference.</p>
       </div>
     );
   }

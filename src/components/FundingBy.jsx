@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
 const FundingByDropdownMenu = React.forwardRef(({ selectedFunders, setSelectedFunders, setFunderName, data }, ref) => {
-    // const [tempselectedFunders, setTempselectedFunders] = useState([...selectedFunders]);
+  if(data === null) return (
+    <div className='text-onclick-btnblue text-[16px] mt-[-15px] mb-[7px]'>
+      loading...
+    </div>
+  )
+  else {
     const [isShow, setIsShow] = useState(false);
     const categories = data.map(item => item.funding_pattern);
     const uniqueCategories = [...new Set(categories)];
@@ -86,7 +91,7 @@ const FundingByDropdownMenu = React.forwardRef(({ selectedFunders, setSelectedFu
           </ul>
           </div>
       );
-  
+      }
     }
   );
   

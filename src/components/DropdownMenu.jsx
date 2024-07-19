@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 const DropdownMenu = React.forwardRef(({ selectedState, setSelectedState, setStateName, data }, ref) => {
   if(data === null) return (
-    <div>
+    <div className='text-onclick-btnblue text-[16px] mt-[-15px] mb-[7px]'>
       loading...
     </div>
   )
@@ -95,3 +95,4 @@ const DropdownMenu = React.forwardRef(({ selectedState, setSelectedState, setSta
 );
 
 export default DropdownMenu;
+
