@@ -74,7 +74,7 @@ const ApplyModal = ({ isOpen, onRequestClose, scheme }) => {
                 </p> */}
               </div>
             </div>
-
+      
             {/* Main data section */}
             <div className="mt-8 space-y-4 w-full sm:max-w-3xl p-4">
 

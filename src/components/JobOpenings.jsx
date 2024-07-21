@@ -41,6 +41,7 @@ export default function JobOpenings({ setData, ...props }) {
         selectedBeneficiaries={props.selectedBeneficiaries}
         selectedAges={props.selectedAges}
         selectedFunders={props.selectedFunders}
+        selectedSponsors={props.selectedSponsors}
       />
     </div>
   );
