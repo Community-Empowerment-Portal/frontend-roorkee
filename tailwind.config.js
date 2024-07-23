@@ -27,6 +27,9 @@ module.exports = {
       fontFamily: {
         inter: ['Inter', 'sans-serif'], // Custom font family
       },
+      boxShadow: {
+        'custom': '0px 1px 20px 0px rgba(0, 0, 0, 0.05)',
+      },
     },
   },
   variants: {},
