@@ -7,6 +7,7 @@ import { FaGraduationCap } from "react-icons/fa6";
 import image01 from "../assets/Image01.png";
 import image02 from "../assets/Image02.png";
 import image03 from "../assets/Image03.png";
+import iitr from '../assets/iitr.jpeg';
 
 import Image from "next/image";
 
@@ -230,6 +231,11 @@ const HomePage = () => {
           {/* fifth row */}
           <div className="flex flex-col items-center w-full p-8 bg-gradient-to-b from-white to-[#FDFBF6] mt-8">
             Made by
+            <div className=" mt-7 flex justify-between w-full">
+              <div>NST</div>
+              <div>SSF</div>
+              <div>IITR</div>
+            </div>
           </div>
         </div>
       </div>

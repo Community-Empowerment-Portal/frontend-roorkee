@@ -6,6 +6,7 @@ import JobOpenings from "./JobOpenings"; // Adjust path as per your project stru
 import Scholarships from "./Scholarships"; // Adjust path as per your project structure
 import Saved from "./savedForLoginuser";
 import { useTabContext } from "@/Context/TabContext";
+import SelectedFilters from "./SelectedFilters";
 
 export default function Tabs(props) {
   const router = useRouter();
@@ -41,6 +42,8 @@ export default function Tabs(props) {
   return (
     <div className="mb-4">
       <SearchInput searchQuery={searchQuery} handleSearch={handleSearch} />
+
+      <SelectedFilters selectedState = {props.selectedState} selectedBeneficiaries = {props.selectedBeneficiaries} selectedDepartments = {props.selectedDepartments} selectedFunders = {props.selectedFunders} selectedSponsors = {props.selectedSponsors} />
 
       <div className="flex justify-center items-center gap-[15px]">
         <button
