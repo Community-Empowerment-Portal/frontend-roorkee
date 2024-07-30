@@ -8,6 +8,8 @@ import image01 from "../assets/Image01.png";
 import image02 from "../assets/Image02.png";
 import image03 from "../assets/Image03.png";
 import iitr from '../assets/iitr.jpeg';
+import ssf from '../assets/ssf.jpeg';
+import nst from '../assets/nst.jpg';
 
 import Image from "next/image";
 
@@ -232,9 +234,9 @@ const HomePage = () => {
           <div className="flex flex-col items-center w-full p-8 bg-gradient-to-b from-white to-[#FDFBF6] mt-8">
             Made by
             <div className=" mt-7 flex justify-between w-full">
-              <div>NST</div>
-              <div>SSF</div>
-              <div>IITR</div>
+              <img src={nst.src} height={nst.height} className="w-20" alt="description" />
+              <img src={ssf.src} height={ssf.height} className="w-16" alt="description" />
+              <img src={iitr.src} height={iitr.height} className="w-16" alt="description" />
             </div>
           </div>
         </div>
