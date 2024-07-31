@@ -233,10 +233,10 @@ const HomePage = () => {
           {/* fifth row */}
           <div className="flex flex-col items-center w-full p-8 bg-gradient-to-b from-white to-[#FDFBF6] mt-8">
             Made by
-            <div className=" mt-7 flex justify-between w-full">
-              <img src={nst.src} height={nst.height} className="w-20" alt="description" />
-              <img src={ssf.src} height={ssf.height} className="w-16" alt="description" />
-              <img src={iitr.src} height={iitr.height} className="w-16" alt="description" />
+            <div className="mt-8 flex justify-between w-full">
+              <div className="w-20 h-20 rounded-full bg-[#EEF] flex items-center justify-center font-bold">NST</div>
+              <div className="w-20 h-20 rounded-full bg-[#EEF] flex items-center justify-center font-bold">SSF</div>
+              <div className="w-20 h-20 rounded-full bg-[#EEF] flex items-center justify-center font-bold">IITR</div>
             </div>
           </div>
         </div>
