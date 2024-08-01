@@ -3,7 +3,9 @@ import FilterContext from '@/Context/FilterContext';
 const DropdownMenu = () => {
   const uniqueCategories = ["SC / ST", "General", "OBC", "Students", "Teacher", "Disabled"]
   .sort((a, b) => a[1].localeCompare(b[1]));
+
   const {beneficiaries, setBeneficiaries} = useContext(FilterContext);
+
   const handleItemClick = (value) => {
     // const value = item == "SC / ST" ? "SC" : item;
     if (beneficiaries.includes(value)) {

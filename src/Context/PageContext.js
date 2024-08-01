@@ -1,6 +1,5 @@
 // src/Context/PageContext.jsx
 import { createContext, useContext, useState } from 'react';
-
 const PageContext = createContext();
 
 // export const usePageContext = () => useContext(PageContext);
