@@ -7,6 +7,7 @@ import { FaEye, FaEyeSlash, FaSpinner } from "react-icons/fa";
 import { FaAngleRight, FaArrowLeftLong } from "react-icons/fa6";
 import { useAuth } from "../Context/AuthContext";
 import loginperson from "../assets/image.png";
+import LoginSucc from "./loginSucc";
 
 
 const login = () => {
@@ -14,6 +15,7 @@ const login = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
   const { login } = useAuth();
 
 
@@ -69,10 +71,11 @@ const login = () => {
         const user = { token: result.access, email: values.email };
         localStorage.setItem("token", result.access);
         login(result.access, user); // Save token and user information to the context
-        router.push("/loginSucc");
+        // router.push("/loginSucc");
+        setLoggedIn(true)
         setTimeout(() => {
           router.push("/schemes");
-        }, 2000);
+        }, 1000);
       } else {
         setErrorMessage("Email or password is invalid");
       }
@@ -85,8 +88,8 @@ const login = () => {
   };
 
   return (
-    
-    <div className="flex h-screen overflow-hidden -mb-6">
+    <>
+    {loggedIn ? <LoginSucc/> : (<div className="flex h-screen overflow-hidden -mb-6">
       <div className="w-1/2 bg-[#FEF6F0] relative flex items-center justify-center">
         <div className="absolute top-0 text-[#000] mt-20 ml-8 mr-8">
           <h1 className="text-purple-400 font-inter italic font-bold text-3xl mb-4 w-[500px]">
@@ -299,7 +302,9 @@ const login = () => {
         </Formik>
       </div>
     </div>
-  );
-};
+    
+  )}
+  </>
+)};
 
 export default login;

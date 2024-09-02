@@ -3,11 +3,13 @@ import { useState } from 'react';
 const EnterResPass = () => {
     const [email, setEmail] = useState('');
     const [errorMessage, setErrorMessage] = useState(null);
+    const [successMessage, setSuccessMessage] = useState(null);
     const [loading, setLoading] = useState(false);
 
     const handleSubmit = async () => {
         setLoading(true);
         setErrorMessage(null); // Clear any previous errors
+        setSuccessMessage(null); // Clear any previous success messages
 
         try {
             const myHeaders = new Headers();
@@ -39,13 +41,10 @@ const EnterResPass = () => {
                 }
             }
 
-            // console.log("Password reset email sent successfully:", result);
-
-            // Handle success (e.g., show a success message or redirect)
-            setErrorMessage("Password reset email sent successfully. Please check your email to verify.");
+            // Handle success
+            setSuccessMessage("Password reset email sent successfully. Please check your email to verify.");
         } catch (error) {
             console.error("Error during password reset:", error);
-            // Display the specific error message
             setErrorMessage(error.message);
         } finally {
             setLoading(false);
@@ -76,18 +75,24 @@ const EnterResPass = () => {
                         </div>
                     </div>
 
-                    <div
-                        className="bg-[#3431BB] px-8 py-4 rounded-[13px] mt-8 max-w-lg w-full flex justify-center cursor-pointer hover:bg-[#282797]"
+                    <button
+                        className={`bg-[#3431BB] text-white px-8 py-4 rounded-[13px] mt-8 max-w-lg w-full flex justify-center cursor-pointer hover:bg-[#282797] ${
+                            loading ? 'opacity-50 cursor-not-allowed' : ''
+                        }`}
                         onClick={handleSubmit}
+                        disabled={loading}
                     >
-                        <button className="text-white px-4 hover:bg-[#282797]" disabled={loading}>
-                            {loading ? "Sending..." : "Continue"}
-                        </button>
-                    </div>
+                        {loading ? "Sending..." : "Continue"}
+                    </button>
 
                     {errorMessage && (
                         <div className="mt-4 text-red-500">
                             {errorMessage}
+                        </div>
+                    )}
+                    {successMessage && (
+                        <div className="mt-4 text-green-500">
+                            {successMessage}
                         </div>
                     )}
                 </div>
