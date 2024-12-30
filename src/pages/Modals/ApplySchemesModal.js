@@ -26,8 +26,8 @@ const ApplyModal = ({
       if (scheme && scheme.id) {
         try {
           const [criteriaRes, documentsRes] = await Promise.all([
-            fetch(`http://65.0.122.213:8000/api/schemes/${scheme.id}/criteria/`),
-            fetch(`http://65.0.122.213:8000/api/schemes/${scheme.id}/documents/`),
+            fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/schemes/${scheme.id}/criteria/`),
+            fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/schemes/${scheme.id}/documents/`),
           ]);
 
           if (!criteriaRes.ok) {
@@ -90,7 +90,7 @@ const ApplyModal = ({
     e.preventDefault();
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/feedback/scheme-reports/", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/feedback/scheme-reports/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
