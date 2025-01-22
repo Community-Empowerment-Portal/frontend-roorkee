@@ -18,7 +18,7 @@ import { useBookmarkContext } from "@/Context/BookmarkContext";
 
 export default function Categories({ ffff, dataFromApi, totalPages }) {
   const { activeTab, setActiveTab } = useTabContext(); // Accessing context
-  const { isBookmarked, toggleBookmark } = useBookmarkContext();
+  const { isBookmarked, toggleBookmark, setIsBookmarked} = useBookmarkContext();
   const [selectedScheme, setSelectedScheme] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSavedModalOpen, setIsSavedModalOpen] = useState(false);
@@ -85,7 +85,7 @@ export default function Categories({ ffff, dataFromApi, totalPages }) {
             acc[id] = true;
             return acc;
           }, {});
-          setBookmarks(bookmarks);
+          setIsBookmarked(bookmarks);
         } catch (error) {
           console.error("Failed to fetch saved schemes:", error);
         }
