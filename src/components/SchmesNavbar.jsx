@@ -161,7 +161,7 @@ const NavBarScheme = () => {
           <ToolTips tooltip="Search for schemes, job openings & scholarships"></ToolTips>
           {!showSearch && (
             <IoSearchOutline
-              className="cursor-pointer w-6 h-6 text-gray-500 absolute right-10"
+              className="cursor-pointer w-6 h-6 text-gray-500 absolute right-7"
               onClick={() => setShowSearch(true)} // Show the search bar
             />
           )}
@@ -169,15 +169,16 @@ const NavBarScheme = () => {
 
         {/* Hamburger Menu Icon (Visible only on small screens) */}
         <div
-          className="sm:hidden cursor-pointer absolute mr-[6px] right-6"
+          className="sm:hidden cursor-pointer absolute mr-[6px] right-1"
           onClick={toggleSidebar}
         >
-          <IoMenuOutline size={28} color="gray" />
+          <IoMenuOutline size={30} color="gray" />
         </div>
 
         {/* Profile or Login Section */}
         <div className="flex gap-4 items-center ml-auto sm:block hidden">
           {authState.token ? (
+            
             <div className="relative">
               {/* Profile Button (Visible on desktop) */}
               <button

@@ -106,7 +106,7 @@ const NavBar = () => {
             <div className="relative">
               {/* Profile Icon for Mobile */}
               <button
-                className="flex items-center px-4 py-2 text-gray-500 text-[35px] font-semibold rounded-lg sm:hidden"
+                className="flex items-center px-4 py-2 text-gray-500 text-[30px] font-semibold rounded-lg sm:hidden right-1"
                 onClick={toggleDropdown}
               >
                 <CgProfile />

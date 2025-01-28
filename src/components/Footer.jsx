@@ -327,7 +327,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <p className="flex justify-center font-semibold mt-[1rem] items-center  border-t-[1px] text-sm text-black  py-[1rem]">
+        <p className="flex justify-center font-semibold mt-[3rem] items-center  border-t-[1px] text-sm text-black  py-[1rem]">
           &copy; {new Date().getFullYear()} LaunchPad. All Rights Reserved.
         </p>
       </footer>
