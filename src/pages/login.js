@@ -90,11 +90,6 @@ const login = () => {
   return (
 
       <div className="flex h-screen overflow-hidden flex-col md:flex-row">
- 
-
-       
-        
-
         <div className="relative w-full h-screen md:w-1/2 flex items-center justify-center bg-white px-4 sm:px-8">
 
           
@@ -280,7 +275,10 @@ const login = () => {
             )}
           </Formik>
         </div>
-               <div className="w-1/2 bg-[#FEF6F0] relative flex items-center justify-center hidden lg:block sm:hidden md:block min-w-[767px]">
+               <div
+               className={`w-1/2 bg-[#FEF6F0] relative items-center justify-center hidden lg:flex ${
+                 typeof window !== "undefined" && window.innerWidth <= 1000 ? "lg:hidden" : ""
+               }`}>
                <div className="absolute top-0 text-[#000] mt-20 ml-8 mr-8">
                  <h1 className="text-purple-400 font-inter italic font-bold text-3xl mb-4 w-[500px]">
                    “For the Indians by the Indians”
