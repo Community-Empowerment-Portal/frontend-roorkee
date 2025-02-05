@@ -83,11 +83,11 @@ export default function Tabs() {
 
   const renderTabContent = () => {
     switch (activeTab) {
-      case "Scholarships":
+      case "scholarships":
         return <Scholarships />;
-      case "Schemes":
+      case "schemes":
         return <Schemes />;
-      case "Jobs":
+      case "jobs":
         return <JobOpenings />;
       case "Saved":
         return <Saved />;
