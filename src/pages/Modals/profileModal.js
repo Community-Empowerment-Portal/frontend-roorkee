@@ -385,7 +385,7 @@ useEffect(() => {
                   name="name"
                   className="w-full h-[44px] border border-gray-300 p-2 rounded-lg  text-sm font-semibold text-[#757575]"
                   placeholder="Enter your name"
-                  value={profileData.name}
+                  value={emailData?.email || ""}
                   onChange={handleChange}
                 />
               </div>
