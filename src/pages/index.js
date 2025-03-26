@@ -18,7 +18,7 @@ import Image from "next/image";
 
 import { useTabContext } from "@/Context/TabContext";
 import NavBar from "../components/NavBar";
-import AnnouncementPopup from "./Announcement";
+import AnnouncementPopup from "./Announcement.js";
 
 import VerifiedStatus from "@/components/isVerfiedComponent";
 import FAQSection from "src/Context/FAQSection.js"; // Import FAQSection
