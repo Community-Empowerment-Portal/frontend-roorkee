@@ -18,6 +18,8 @@ import Image from "next/image";
 
 import { useTabContext } from "@/Context/TabContext";
 import NavBar from "../components/NavBar";
+import AnnouncementPopup from "./Announcement";
+
 import VerifiedStatus from "@/components/isVerfiedComponent";
 import FAQSection from "src/Context/FAQSection.js"; // Import FAQSection
 import Footer from "@/components/Footer";
@@ -115,6 +117,8 @@ const App = () => {
     <div>
       <NavBar />
       <VerifiedStatus />
+          <AnnouncementPopup/>
+
 
       <div className="sm:w-full  mx-auto">
         {/* Main Container */}
